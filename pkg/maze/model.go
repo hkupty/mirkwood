@@ -40,7 +40,7 @@ type MazeGrid [][]bool
 
 type LevelState struct {
 	Position     BitBoard
-	VisitedPath  BitBoard // TODO: Rename to Path in REVIEW.md conventions to VisitedPath
+	VisitedPath  BitBoard
 	Marks        BitBoard
 	StepsCounter uint16
 	invariants   LevelInvariants

@@ -113,7 +113,7 @@ Expected representation:
 Required bitboards:
 - `Walls` (static)
 - `Marked` (dynamic)
-- `Path` (visited cells, dynamic)
+- `VisitedPath` (visited cells, dynamic)
 
 ---
 
@@ -124,9 +124,11 @@ The reviewer must verify these **hard invariants** are enforced:
 ```
 
 Marked & Walls == 0
-Path & Walls == 0
+VisitedPath & Walls == 0
 
 ```
+
+The walls wrap the edges of the map as a frame, preventing position over/underflow to adjacent rows.
 
 Enforcement expectations:
 - Wall collisions are prevented at move time
@@ -145,7 +147,7 @@ Expected minimal runtime state:
 
 - Agent position (single cell index)
 - Marked bitboard
-- Path bitboard
+- VisitedPath bitboard
 
 Reviewer checks:
 - Maze (walls) is immutable at runtime
@@ -242,17 +244,17 @@ Reviewer checks:
 
 ---
 
-## Path Bitboard Usage
+## VisitedPath Bitboard Usage
 
-The `Path` (visited) bitboard is expected to be used for:
+The `VisitedPath` (visited) bitboard is expected to be used for:
 
 - Validation rules (no revisits, coverage)
 - Replay and visualization
 - Difficulty analysis
 
 Reviewer must ensure:
-- Path is **not** used to detect collisions (that happens at move time)
-- Path knowledge is **not** exposed to player logic
+- VisitedPath is **not** used to detect collisions (that happens at move time)
+- VisitedPath knowledge is **not** exposed to player logic
 
 ---
 
