@@ -19,7 +19,7 @@ var (
 	ErrStepLimit = errors.New("step limit exceeded")
 
 	// ErrAlreadyComplete indicates the level is already finished
-	ErrAlreadyComplete = errors.New("level already complete")
+	ErrIncompletePath = errors.New("Logic hit an end but did not reach the end of the maze")
 )
 
 // Move attempts to move the player in the given direction.

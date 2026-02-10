@@ -50,6 +50,10 @@ This document tracks the next steps for the Mirkwood educational maze game proje
   - Halt on reaching FinishingPoint (success, load next level)
   - Halt on completion without reaching FinishingPoint (incomplete maze error + reset state)
   - Pure function: `Execute(actions, state) -> ExecutionResult`
+- [ ] **Restructure Entry Points**: Make `Step` the only public entry point for TUI
+  - `Process` should be internal/testing-only
+  - TUI calls `Step` individually with timing control (200-800ms delays)
+  - Remove timing/display concerns from core execution logic
 
 ### TUI (pkg/tui/)
 - [ ] **Bubble Tea Setup**: Initialize TUI framework
@@ -64,6 +68,7 @@ This document tracks the next steps for the Mirkwood educational maze game proje
   - Maze generation (valid mazes have solutions)
   - State transitions (Move in all directions)
   - Parser (valid programs parse correctly)
+  - Move `Process` function to test utilities for action sequence fuzzing
 - [ ] **Invariant Tests**: Property-based tests for bitboard invariants
 - [ ] **Deterministic Tests**: Seeded randomness for maze generation tests
 
