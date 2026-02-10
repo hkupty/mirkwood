@@ -12,6 +12,9 @@ var (
 	// ErrInvalidState indicates the state has become corrupted (e.g., multiple positions)
 	ErrInvalidState = errors.New("invalid game state")
 
+	// ErrInvalidAction indicates that this action would cause the state to be invalid
+	ErrInvalidAction = errors.New("action would cause the state to be invalid")
+
 	// ErrHitWall indicates the player attempted to move into a wall
 	ErrHitWall = errors.New("you hit a tree")
 
@@ -19,7 +22,7 @@ var (
 	ErrStepLimit = errors.New("step limit exceeded")
 
 	// ErrAlreadyComplete indicates the level is already finished
-	ErrIncompletePath = errors.New("Logic hit an end but did not reach the end of the maze")
+	ErrIncompletePath = errors.New("logic hit an end but did not reach the end of the maze")
 )
 
 // Move attempts to move the player in the given direction.
@@ -34,8 +37,14 @@ func (s State) Move(dir command.Direction) (State, error) {
 	var nextPos maze.BitBoard
 	switch dir {
 	case command.North:
+		if s.Position < (1 << 8) {
+			return s, ErrInvalidAction
+		}
 		nextPos = s.Position >> 8
 	case command.South:
+		if s.Position > (1 << 56) {
+			return s, ErrInvalidAction
+		}
 		nextPos = s.Position << 8
 	case command.East:
 		nextPos = s.Position << 1
