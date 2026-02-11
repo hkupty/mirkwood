@@ -30,14 +30,14 @@ func process(state State, actions []any) (State, error) {
 	return stateCursor, nil
 }
 
-func stateFromBoard(invariant levelInvariants) State {
+func stateFromBoard(invariant LevelInvariants) State {
 	return State{
-		invariants: invariant,
+		Invariants: invariant,
 	}
 }
 
 func TestEngine(t *testing.T) {
-	base := stateFromBoard(levelInvariants{
+	base := stateFromBoard(LevelInvariants{
 		Walls:          maze.BitBoard(0xFF2DA5B5B195C5FD),
 		FinishingPoint: maze.BitBoard(1 << 55),
 	})
@@ -50,7 +50,7 @@ func TestEngine(t *testing.T) {
 		t.Error(err)
 	}
 	if !final.IsAtFinish() {
-		t.Fatalf("\nPOS    %b\nFINISH %b\n\n Not at the end", final.Position, final.invariants.FinishingPoint)
+		t.Fatalf("\nPOS    %b\nFINISH %b\n\n Not at the end", final.Position, final.Invariants.FinishingPoint)
 	}
 
 	if err = final.IsValid(); err != nil {
@@ -81,7 +81,7 @@ func stringToCommandList(str string) []any {
 }
 
 func FuzzEngine(f *testing.F) {
-	base := stateFromBoard(levelInvariants{
+	base := stateFromBoard(LevelInvariants{
 		Walls:          maze.BitBoard(0xFF2DA5B5B195C5FD),
 		FinishingPoint: maze.BitBoard(1 << 55),
 	})

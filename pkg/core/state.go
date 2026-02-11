@@ -18,11 +18,11 @@ type State struct {
 	StepsCounter uint16
 
 	// Static level data (walls, finish point)
-	invariants levelInvariants
+	Invariants LevelInvariants
 }
 
-// levelInvariants holds static level data that doesn't change during play
-type levelInvariants struct {
+// LevelInvariants holds static level data that doesn't change during play
+type LevelInvariants struct {
 	// Walls bitboard (static, immutable)
 	Walls maze.BitBoard
 

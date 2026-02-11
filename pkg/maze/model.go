@@ -40,6 +40,17 @@ type WinCondition struct {
 var (
 	// SimpleExit only requires reaching the exit
 	SimpleExit = WinCondition{}
+
+	SampleMaze = MazeGrid{
+		{true, false, true, true, true, true, true, true},
+		{true, false, true, false, false, false, true, true},
+		{true, false, true, false, true, false, false, true},
+		{true, false, false, false, true, true, false, true},
+		{true, false, true, false, true, true, false, true},
+		{true, false, true, false, false, true, false, true},
+		{true, false, true, true, false, true, false, false},
+		{true, true, true, true, true, true, true, true},
+	}
 )
 
 // A typical maze grid could look roughly like:

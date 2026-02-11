@@ -53,7 +53,7 @@ func (s State) Move(dir command.Direction) (State, error) {
 	}
 
 	// Check for wall collision
-	if nextPos&s.invariants.Walls != 0 {
+	if nextPos&s.Invariants.Walls != 0 {
 		return s, ErrHitWall
 	}
 
@@ -63,7 +63,7 @@ func (s State) Move(dir command.Direction) (State, error) {
 		VisitedPath:  s.VisitedPath | nextPos,
 		Marks:        s.Marks,
 		StepsCounter: s.StepsCounter + 1,
-		invariants:   s.invariants,
+		Invariants:   s.Invariants,
 	}, nil
 }
 
@@ -75,13 +75,13 @@ func (s State) ToggleMark() State {
 		VisitedPath:  s.VisitedPath,
 		Marks:        s.Marks ^ s.Position,
 		StepsCounter: s.StepsCounter,
-		invariants:   s.invariants,
+		Invariants:   s.Invariants,
 	}
 }
 
 // IsAtFinish returns true if the player is at the finishing point
 func (s State) IsAtFinish() bool {
-	return s.Position&s.invariants.FinishingPoint != 0
+	return s.Position&s.Invariants.FinishingPoint != 0
 }
 
 // MarkCount returns the number of marked cells
@@ -97,17 +97,17 @@ func (s State) IsValid() error {
 	}
 
 	// Check no overlap between marks and walls
-	if s.Marks&s.invariants.Walls != 0 {
+	if s.Marks&s.Invariants.Walls != 0 {
 		return ErrInvalidState
 	}
 
 	// Check no overlap between visited path and walls
-	if s.VisitedPath&s.invariants.Walls != 0 {
+	if s.VisitedPath&s.Invariants.Walls != 0 {
 		return ErrInvalidState
 	}
 
 	// Check position is not on a wall
-	if s.Position&s.invariants.Walls != 0 {
+	if s.Position&s.Invariants.Walls != 0 {
 		return ErrInvalidState
 	}
 

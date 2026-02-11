@@ -16,7 +16,7 @@ func NewStateFromBlueprint(bp maze.LevelBlueprint) State {
 		VisitedPath:  startPos,
 		Marks:        0,
 		StepsCounter: 0,
-		invariants: levelInvariants{
+		Invariants: LevelInvariants{
 			Walls:          walls,
 			FinishingPoint: finishPos,
 		},
