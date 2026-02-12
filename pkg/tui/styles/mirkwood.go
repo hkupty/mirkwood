@@ -7,37 +7,16 @@ const (
 	PathChar = ' '
 )
 
-// Walls style for maze wall cells (tree trunks/bark).
-// TODO: Better fg color
-// TODO: Figure out best symbol and decorations (i.e. borders instead of block)
-var Walls = lipgloss.NewStyle().
-	Bold(true).
-	Foreground(lipgloss.Color("#1B3A1B")).
-	Background(lipgloss.Color("#2D2420"))
+// NOTE: Marked, unless marked from start, implies visited;
+// NOTE: Colors are difficult to get right. Player might be a Foreground-only modifier,
+// while Path/Visited/Marked might be a background-only modifier
 
-// Path style for empty path cells (forest floor).
-// TODO: Better fg color
-var Path = lipgloss.NewStyle().
-	Bold(true).
-	Foreground(lipgloss.Color("#1B3A1B")).
-	Background(lipgloss.Color("#4A3728"))
-
-// Player style for the player character (bright highlight).
-var Player = lipgloss.NewStyle().
-	Bold(true).
-	Foreground(lipgloss.Color("#FFD700")).
-	Background(lipgloss.Color("#4A3728"))
-
-// Mark style for player-placed marks (distinct but subtle).
-var Mark = lipgloss.NewStyle().
-	Foreground(lipgloss.Color("#90EE90")).
-	Background(lipgloss.Color("#4A3728"))
-
-// Visited style for cells the player has stepped on (subtle trail).
-var Visited = lipgloss.NewStyle().
-	Foreground(lipgloss.Color("#8B7355")).
-	Background(lipgloss.Color("#4A3728"))
-
-var VisitedMark = lipgloss.NewStyle().
-	Foreground(lipgloss.Color("#8EB173")).
-	Background(lipgloss.Color("#4A3728"))
+var (
+	WallFg        = lipgloss.Color("#385831")
+	WallBg        = lipgloss.Color("#1B3A1B")
+	PathBg        = lipgloss.Color("#5B4634")
+	PlayerFg      = lipgloss.Color("#722D4F")
+	MarkFg        = lipgloss.Color("#90EE90")
+	VisitedMarkFg = lipgloss.Color("#8EB173")
+	VisitedPathBg = lipgloss.Color("#634E3A")
+)

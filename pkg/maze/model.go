@@ -51,6 +51,13 @@ var (
 		{true, false, true, true, false, true, false, false},
 		{true, true, true, true, true, true, true, true},
 	}
+	SampleBlueprint = LevelBlueprint{
+		Key:            0,
+		Grid:           SampleMaze,
+		StartingPoint:  1,
+		FinishingPoint: 55,
+		WinCondition:   SimpleExit,
+	}
 )
 
 // A typical maze grid could look roughly like:

@@ -5,6 +5,7 @@ import (
 	"os"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/hkupty/mirkwood/pkg/command"
 	"github.com/hkupty/mirkwood/pkg/maze"
 	"github.com/hkupty/mirkwood/pkg/tui/components/mazeview"
 )
@@ -15,13 +16,7 @@ type model struct {
 
 func initialModel() model {
 	return model{
-		maze: mazeview.New(maze.LevelBlueprint{
-			Key:            0,
-			Grid:           maze.SampleMaze,
-			StartingPoint:  1,
-			FinishingPoint: 55,
-			WinCondition:   maze.SimpleExit,
-		}),
+		maze: mazeview.New(maze.SampleBlueprint),
 	}
 }
 
@@ -31,8 +26,6 @@ func (m model) Init() tea.Cmd {
 }
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
-	m.maze.Update()
-
 	switch msg := msg.(type) {
 
 	// Is it a key press?
@@ -43,6 +36,46 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		// These keys should exit the program.
 		case "ctrl+c", "q":
 			return m, tea.Quit
+
+		case "j":
+			newM, err := m.maze.Update(command.Walk{Dir: command.South})
+			if err != nil {
+				return m, nil
+			}
+
+			m.maze = newM
+
+		case "k":
+			newM, err := m.maze.Update(command.Walk{Dir: command.North})
+			if err != nil {
+				return m, nil
+			}
+
+			m.maze = newM
+
+		case "l":
+			newM, err := m.maze.Update(command.Walk{Dir: command.East})
+			if err != nil {
+				return m, nil
+			}
+
+			m.maze = newM
+
+		case "h":
+			newM, err := m.maze.Update(command.Walk{Dir: command.West})
+			if err != nil {
+				return m, nil
+			}
+
+			m.maze = newM
+
+		case "m":
+			newM, err := m.maze.Update(command.Mark{})
+			if err != nil {
+				return m, nil
+			}
+
+			m.maze = newM
 		}
 
 		// Return the updated model to the Bubble Tea runtime for processing.
